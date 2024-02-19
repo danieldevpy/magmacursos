@@ -1,6 +1,6 @@
 import io
 from fastapi import APIRouter, HTTPException, status, Response
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseModel
 from infra.database.models import Engine
 from infra.database.controller.modelSqlite import ModelSqlite
@@ -31,7 +31,7 @@ def save(c: CertificatePreview):
     certificate = Certificate(c.name, c.cpf, c.date, model)
     try:
         CertificateCase.create(certificate_repository, certificate)
-        return {"Sucess": "Certificado criado com sucesso!"}
+        return {"message": "Certificado criado com sucesso!"}
     except Exception as e:
         return e
     
@@ -59,6 +59,9 @@ def view(cod: int):
     response.headers["Content-Disposition"] = f'inline; filename="{certificate.name}.pdf"; title="Seu Título Personalizado"'
     return response
 
-
-
-
+@router.get("/certificate/list")
+def list():
+    certificate_repository = CertificateSqlite(engine)
+    certificates = CertificateCase.list_all(certificate_repository)
+    certificates_json = [certificate.to_dict() for certificate in certificates]
+    return JSONResponse(certificates_json, 200)

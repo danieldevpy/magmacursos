@@ -15,7 +15,7 @@ export default class API {
     
     static getInstance(): API {
         if (!API.instance) {
-            API.instance = new API();
+            API.instance = new API(true);
         }
         return API.instance;
     }
@@ -38,6 +38,15 @@ export default class API {
             },
             body: data_json
           })
+    }
+
+    async list(): Promise<Response>{
+        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/list`, {
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        })
     }
 
 }

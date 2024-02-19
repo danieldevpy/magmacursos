@@ -2,15 +2,20 @@ import React from "react";
 import { Box, TextField, Button, Checkbox, FormControlLabel, CircularProgress} from "@mui/material";
 import BasicSelect from "@/components/select";
 import LayoutAPP from "@/components/layout";
+import Fade from '@mui/material/Fade';
 import API from "@/controller/api";
+import { useRouter } from 'next/router';
 
-export default function Preview(){
+
+export default function PreviewPage(){
   const [timerId, setTimerId] = React.useState<NodeJS.Timeout>();
   const [img, setImg] = React.useState<string>();
   const [name, setName] = React.useState("");
   const [cpf, setCpf] = React.useState("");
   const [date, setDate] = React.useState("");
   const [checked, setChecked] = React.useState(false);
+  const [created, setCreated] = React.useState(false);
+  const router = useRouter();
   const api = API.getInstance();
 
   const getJson =()=>{
@@ -21,8 +26,20 @@ export default function Preview(){
     if(name && cpf && date){
       const response = await api.save(getJson())
       if(response.status == 200){
+        setCreated(true);
       }
     }
+  }
+
+  const resetCertificate =()=>{
+    setName("")
+    setCpf("")
+    setDate("")
+    setCreated(false);
+  }
+  
+  const viewCertificate =()=>{
+    router.push(`/certificados/list?search=${cpf}`);
   }
 
   const preview =async()=>{
@@ -51,17 +68,28 @@ export default function Preview(){
   return(
     <LayoutAPP>
       <Box className="boxGenerate">
-        <Box className="boxGenerateFields">
+        {created? (
+          <Fade in={created} timeout={1000}>
+            <Box>
+              <label className="textSpace" style={{fontSize: 25}}>Certificado gerado com sucesso!</label>
+              <Box sx={{margin: 2, display: "flex", gap: 1}}>
+              <Button variant="contained" color="info" onClick={viewCertificate}>Visualizar Certificado</Button>
+              <Button variant="contained" color="warning" onClick={resetCertificate}>Gerar Novo</Button>
+            </Box>
+            </Box>
+          </Fade>
+        ):(
+          <>
+          <Box className="boxGenerateFields">
           <Box className="boxForm">
             <label className="textSpace" style={{fontSize: 25}}>Formulario</label>
             <FormControlLabel control={<Checkbox onChange={(e)=>setChecked(e.target.checked)}/>} label="Atualizar automatico" />
           </Box>
           <TextField label="Nome Completo" variant="outlined" color="warning" onChange={(e)=>{setName(e.target.value)}}/>
-          <TextField label="Cpf" variant="outlined" color="warning" onChange={(e)=>{setCpf(e.target.value)}}/>
+          <TextField label="Cpf" variant="outlined" type="number" color="warning" onChange={(e)=>{setCpf(e.target.value)}}/>
           <TextField label="Data" variant="outlined" color="warning" onChange={(e)=>{setDate(e.target.value)}}/>
           <BasicSelect/>
           <Button sx={{margin: 2}} variant="contained" color="warning" onClick={save}>Registrar Certificado</Button>
-
         </Box>
         <Box className="boxGenerateImg">
           {img? (
@@ -70,6 +98,8 @@ export default function Preview(){
             <CircularProgress />
           )}
         </Box>
+          </>
+        )}
       </Box>
     </LayoutAPP>
  

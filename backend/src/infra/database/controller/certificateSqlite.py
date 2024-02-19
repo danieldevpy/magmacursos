@@ -1,5 +1,5 @@
 from sqlmodel import Session, select, delete
-from typing import Union
+from typing import List, Union
 from infra.database.controller.modelSqlite import ModelSqlite
 from application.repository.certificateRepository import CertificateRepository
 from infra.database.models import Certificate as CertificateTable, Engine
@@ -30,6 +30,18 @@ class CertificateSqlite(CertificateRepository):
       except Exception as e:
         return e
       
+  def list_all(self) -> List[Certificate] | Exception:
+    with Session(self.engine) as session:
+      try:
+        statment = select(CertificateTable)
+        certificates = session.exec(statment).all()
+        return [self.__convert__entity__no_mode__(certificate) for certificate in certificates]
+      except Exception as e:
+        return e
+      
   def __convert__entity__(self, c: CertificateTable) -> Certificate:
     model = ModelSqlite(self.engine).get_by_id(c.model.id)
     return Certificate(c.name, c.cpf, c.date, model, c.id)
+  
+  def __convert__entity__no_mode__(self, c: CertificateTable) -> Certificate:
+    return Certificate(c.name, c.cpf, c.date, Model(c.model.name, None, None, None, c.model.id), c.id)

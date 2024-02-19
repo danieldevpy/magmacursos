@@ -60,11 +60,12 @@ button:focus-visible {
 .cardbox > div{
   background-color: rgb(48, 48, 48);
   box-shadow: 10px 7px 12px rgba(109, 109, 109, 0.322);
-  width: 90%;
+
  
 }
 .boxGenerate{
   display: flex;
+  padding: 10px;
   gap: 10px;
 }
 .boxGenerate > div{
@@ -83,6 +84,15 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
 }
+.boxList{
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+
+  max-height: 70vh;
+  overflow: auto;
+}
 .btnFloating{
   position: absolute;
   background-color: red;
@@ -96,7 +106,7 @@ button:focus-visible {
 }
 .boxForm{
   display: flex;
-  justify-content: space-between;
+  gap: 50px;
 }
 
 @media (max-width: 800px){
