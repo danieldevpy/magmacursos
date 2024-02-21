@@ -13,7 +13,6 @@ export default function PreviewPage(){
   const [name, setName] = React.useState("");
   const [cpf, setCpf] = React.useState("");
   const [date, setDate] = React.useState("");
-  const [checked, setChecked] = React.useState(false);
   const [created, setCreated] = React.useState(false);
   const router = useRouter();
   const api = API.getInstance();
@@ -50,15 +49,13 @@ export default function PreviewPage(){
   }
 
   React.useEffect(()=>{
-    if(checked){
-     if(name || cpf || date){
+    if(name || cpf || date){
       clearTimeout(timerId);
       const newTimerId = setTimeout(() => {
         preview();
       }, 600);
       setTimerId(newTimerId);
      }
-    }
   }, [name, cpf, date])
 
   React.useEffect(()=>{
@@ -81,15 +78,12 @@ export default function PreviewPage(){
         ):(
           <>
           <Box className="boxGenerateFields">
-          <Box className="boxForm">
             <label className="textSpace" style={{fontSize: 25}}>Formulario</label>
-            <FormControlLabel control={<Checkbox onChange={(e)=>setChecked(e.target.checked)}/>} label="Atualizar automatico" />
-          </Box>
-          <TextField label="Nome Completo" variant="outlined" color="warning" onChange={(e)=>{setName(e.target.value)}}/>
-          <TextField label="Cpf" variant="outlined" type="number" color="warning" onChange={(e)=>{setCpf(e.target.value)}}/>
-          <TextField label="Data" variant="outlined" color="warning" onChange={(e)=>{setDate(e.target.value)}}/>
-          <BasicSelect/>
-          <Button sx={{margin: 2}} variant="contained" color="warning" onClick={save}>Registrar Certificado</Button>
+            <TextField label="Nome Completo" variant="outlined" color="warning" onChange={(e)=>{setName(e.target.value)}}/>
+            <TextField label="Cpf" variant="outlined" type="number" color="warning" onChange={(e)=>{setCpf(e.target.value)}}/>
+            <TextField label="Data" variant="outlined" color="warning" onChange={(e)=>{setDate(e.target.value)}}/>
+            <BasicSelect/>
+            <Button sx={{margin: 2}} variant="contained" color="warning" onClick={save}>Registrar Certificado</Button>
         </Box>
         <Box className="boxGenerateImg">
           {img? (

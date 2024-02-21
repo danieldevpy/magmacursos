@@ -5,9 +5,9 @@ export default class API {
 
     private constructor(localhost = false) {
         if(localhost){
-            this.ipServer = "localhost:8080"
+            this.ipServer = "http://localhost:8080"
         }else{
-            this.ipServer = "magmacursosltda.com.br"
+            this.ipServer = "https://magmacursosltda.com.br"
         }
         
     }
@@ -20,7 +20,7 @@ export default class API {
     }
     
     async preview(data_json: string): Promise<Response>{
-        return await fetch(`https://${this.ipServer}/certificate/preview`, {
+        return await fetch(`${this.ipServer}/certificate/preview`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export default class API {
     }
 
     async save(data_json: string): Promise<Response>{
-        return await fetch(`https://${this.ipServer}/certificate/save`, {
+        return await fetch(`${this.ipServer}/certificate/save`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export default class API {
     }
 
     async list(): Promise<Response>{
-        return await fetch(`https://${this.ipServer}/certificate/list`, {
+        return await fetch(`${this.ipServer}/certificate/list`, {
             method: "GET",
             headers: {
               'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export default class API {
     }
 
     async getPDF(id: string): Promise<Response>{
-        return await fetch(`https://${this.ipServer}/certificate/view/${id}`,{
+        return await fetch(`${this.ipServer}/certificate/view/${id}`,{
             method: "GET",
             headers: {
               'Content-Type': 'application/json'
