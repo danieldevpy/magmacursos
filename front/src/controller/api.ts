@@ -1,16 +1,15 @@
 export default class API {
     private static instance: API | null = null;
     private ipServer: string;
-    private portServer: string; 
 
 
     private constructor(localhost = false) {
         if(localhost){
-            this.ipServer = "localhost"
+            this.ipServer = "localhost:8080"
         }else{
-            this.ipServer = "45.231.133.38"
+            this.ipServer = "magmacursosltda.com.br"
         }
-        this.portServer = "8080"
+        
     }
     
     static getInstance(): API {
@@ -21,7 +20,7 @@ export default class API {
     }
     
     async preview(data_json: string): Promise<Response>{
-        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/preview`, {
+        return await fetch(`https://${this.ipServer}/certificate/preview`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -31,7 +30,7 @@ export default class API {
     }
 
     async save(data_json: string): Promise<Response>{
-        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/save`, {
+        return await fetch(`https://${this.ipServer}/certificate/save`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -41,7 +40,7 @@ export default class API {
     }
 
     async list(): Promise<Response>{
-        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/list`, {
+        return await fetch(`https://${this.ipServer}/certificate/list`, {
             method: "GET",
             headers: {
               'Content-Type': 'application/json'
@@ -50,7 +49,7 @@ export default class API {
     }
 
     async getPDF(id: string): Promise<Response>{
-        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/view/${id}`,{
+        return await fetch(`https://${this.ipServer}/certificate/view/${id}`,{
             method: "GET",
             headers: {
               'Content-Type': 'application/json'
