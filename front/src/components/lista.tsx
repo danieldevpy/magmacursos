@@ -20,8 +20,9 @@ export default function ListCertificates(props: ListCertificate) {
     
 
     const viewCertificate =(c: Certificate)=>{
-        setModalVisible(true);
+        // console.log(c);
         setCertificateSelected(c);
+        setModalVisible(true);
     }
 
     const resetSearch =()=>{

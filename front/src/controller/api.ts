@@ -49,4 +49,13 @@ export default class API {
         })
     }
 
+    async getPDF(id: string): Promise<Response>{
+        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/view/${id}`,{
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        })
+    }
+
 }

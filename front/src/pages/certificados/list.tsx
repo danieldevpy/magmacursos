@@ -16,22 +16,26 @@ interface SearchData {
   
 
 const ListPage: React.FC<Props> = ({ searchData }) => {
-    const [certificates, setCertificates] = React.useState<Certificate[]>();
+    const [certificates, setCertificates] = React.useState<Certificate[]>([]);
     const [search, setSearch] = React.useState<any>();
     const api = API.getInstance();
   
     const request =async()=>{
+      if(certificates && certificates.length == 0){
         const response = await api.list();
         const data = await response.json()
         setCertificates(data);
+      }
     }
 
     React.useEffect(() => {
+      if(searchData){
+        request()
+        setSearch(searchData['search']);
+      }else{
         request();
-        if(searchData){
-            setSearch(searchData['search']);
-        }
-      }, [searchData]);
+      }
+    }, [searchData]);
 
     return(
         <LayoutAPP>

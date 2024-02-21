@@ -108,6 +108,21 @@ button:focus-visible {
   display: flex;
   gap: 50px;
 }
+.boxCertificate{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.boxCertificateTools{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+.boxCertificateDiv{
+  display: flex;
+  gap: 20px;
+}
 
 @media (max-width: 800px){
   .cardbox > div{
