@@ -21,7 +21,7 @@ export default class API {
     }
     
     async preview(data_json: string): Promise<Response>{
-        return await fetch(`https://${this.ipServer}:${this.portServer}/certificate/preview`, {
+        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/preview`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export default class API {
     }
 
     async save(data_json: string): Promise<Response>{
-        return await fetch(`https://${this.ipServer}:${this.portServer}/certificate/save`, {
+        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/save`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export default class API {
     }
 
     async list(): Promise<Response>{
-        return await fetch(`https://${this.ipServer}:${this.portServer}/certificate/list`, {
+        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/list`, {
             method: "GET",
             headers: {
               'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ export default class API {
     }
 
     async getPDF(id: string): Promise<Response>{
-        return await fetch(`https://${this.ipServer}:${this.portServer}/certificate/view/${id}`,{
+        return await fetch(`http://${this.ipServer}:${this.portServer}/certificate/view/${id}`,{
             method: "GET",
             headers: {
               'Content-Type': 'application/json'
