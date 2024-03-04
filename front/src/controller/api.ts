@@ -48,7 +48,7 @@ export default class API {
         })
     }
 
-    async getPDF(id: string): Promise<Response>{
+    async getPDF(id: number): Promise<Response>{
         return await fetch(`${this.ipServer}/certificate/view/${id}`,{
             method: "GET",
             headers: {

@@ -46,14 +46,12 @@ def preview(c: CertificatePreview):
     return StreamingResponse(io.BytesIO(buffer), media_type="image/png")
 
 
-@router.get("/certificate/view/{cod}")
-def view(cod: int):
-    cpf = str(cod)[:11]
-    certificate_id = str(cod)[11:]
-    if not cpf or not certificate_id:
+@router.get("/certificate/view/{id}")
+def view(id: int):
+    if not id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Model não encontrado")
     certificate_repository = CertificateSqlite(engine)
-    certificate = CertificateCase.get_by_id(certificate_repository, int(certificate_id))
+    certificate = CertificateCase.get_by_id(certificate_repository, id)
     pdf_content = MakePDF.construct(certificate)
     response = Response(content=pdf_content, media_type="application/pdf")
     response.headers["Content-Disposition"] = f'inline; filename="{certificate.name}.pdf"; title="Seu Título Personalizado"'

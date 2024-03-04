@@ -18,7 +18,7 @@ export default function ViewCertificate(props: ViewProps){
     const [date, setDate] = React.useState("");
       
 
-    const getPDF =async(id: string)=>{
+    const getPDF =async(id: number)=>{
         const response = await api.getPDF(id);
         const pdfBlob = await response.blob();
         const pdfUrl = URL.createObjectURL(pdfBlob);
@@ -27,11 +27,10 @@ export default function ViewCertificate(props: ViewProps){
 
     React.useEffect(()=>{
         if(props.certificate){
-            const id = props.certificate.cpf+props.certificate.id;
             setName(props.certificate.name);
             setCpf(props.certificate.cpf);
             setDate(props.certificate.date);
-            getPDF(id);
+            getPDF(props.certificate.id);
         }
     }, [props.certificate])
     
