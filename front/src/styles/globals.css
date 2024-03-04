@@ -111,13 +111,23 @@ button:focus-visible {
 }
 .boxCertificateTools{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 }
 .boxCertificateDiv{
   display: flex;
   gap: 20px;
+}
+.boxModeEdit{
+  display: flex;
+  flex-direction:column;
+  gap: 20px;
+}
+.boxModeEditHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: 800px){

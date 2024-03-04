@@ -5,7 +5,8 @@ import LayoutAPP from "@/components/layout";
 import Fade from '@mui/material/Fade';
 import API from "@/controller/api";
 import { useRouter } from 'next/router';
-
+import Image from "next/image";
+import imageCertificate from '@../../../public/certificado-aph.png'
 
 export default function PreviewPage(){
   const [timerId, setTimerId] = React.useState<NodeJS.Timeout>();
@@ -58,9 +59,6 @@ export default function PreviewPage(){
      }
   }, [name, cpf, date])
 
-  React.useEffect(()=>{
-    preview();
-  }, [])
 
   return(
     <LayoutAPP>
@@ -89,7 +87,7 @@ export default function PreviewPage(){
           {img? (
             <img src={img} width={600}/>
           ):(
-            <CircularProgress />
+            <Image src={imageCertificate} width={600} alt="img"/>
           )}
         </Box>
           </>
