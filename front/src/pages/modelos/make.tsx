@@ -14,13 +14,7 @@ export default function MakePage(){
     return(
         <LayoutAPP>
             <Box>
-                <Box></Box>
-                <HorizontalLinearStepper
-                steps={['Frente do Certificado', 'Verso do Certificado', 'Marcação']}
-                components={[<Box/>]}
-                end={end}
-
-                />
+              <input type="file" />
             </Box>
         </LayoutAPP>
     );
